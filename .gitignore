@@ -1,0 +1,4 @@
+employee.db
+__pycache__/
+*.pyc
+.vscode/
