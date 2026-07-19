@@ -1,9 +1,11 @@
 import sqlite3
 
 connection = sqlite3.connect("employee.db")
+
 cursor = connection.cursor()
+
 cursor.execute("""
-CREATE TABLE IF NOT EXISTS employees (
+CREATE TABLE IF NOT EXISTS employees(
     employee_id INTEGER PRIMARY KEY,
     name TEXT,
     age INTEGER,
@@ -17,7 +19,6 @@ CREATE TABLE IF NOT EXISTS employees (
 """)
 
 connection.commit()
-
 connection.close()
 
 print("Database and Employee table created successfully!")

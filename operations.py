@@ -1,5 +1,6 @@
 import sqlite3
 
+
 def add_employee(employee):
     connection = sqlite3.connect("employee.db")
     cursor = connection.cursor()
@@ -32,4 +33,17 @@ def add_employee(employee):
     connection.commit()
     connection.close()
 
-    print("Employee added successfully!")
+    print("\n✅ Employee added successfully!")
+
+
+def view_employees():
+    connection = sqlite3.connect("employee.db")
+    cursor = connection.cursor()
+
+    cursor.execute("SELECT * FROM employees")
+
+    employees = cursor.fetchall()
+
+    connection.close()
+
+    return employees
