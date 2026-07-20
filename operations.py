@@ -47,3 +47,35 @@ def view_employees():
     connection.close()
 
     return employees
+
+
+def search_employee_by_id(employee_id):
+    connection = sqlite3.connect("employee.db")
+    cursor = connection.cursor()
+
+    cursor.execute(
+        "SELECT * FROM employees WHERE employee_id=?",
+        (employee_id,)
+    )
+
+    employee = cursor.fetchone()
+
+    connection.close()
+
+    return employee
+
+
+def search_employee_by_name(name):
+    connection = sqlite3.connect("employee.db")
+    cursor = connection.cursor()
+
+    cursor.execute(
+        "SELECT * FROM employees WHERE name=?",
+        (name,)
+    )
+
+    employees = cursor.fetchall()
+
+    connection.close()
+
+    return employees
