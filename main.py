@@ -2,11 +2,14 @@ from operations import (
     add_employee,
     view_employees,
     search_employee_by_id,
-    search_employee_by_name
+    search_employee_by_name,
+    update_employee,
+    delete_employee
 )
 
 
 def get_employee_details():
+
     employee = {
         "employee_id": int(input("Enter Employee ID: ")),
         "name": input("Enter Employee Name: "),
@@ -24,16 +27,18 @@ def get_employee_details():
 
 while True:
 
-    print("\n===================================")
-    print("   Employee Management System")
-    print("===================================")
+    print("\n======================================")
+    print("      Employee Management System")
+    print("======================================")
 
     print("1. Add Employee")
     print("2. View Employees")
     print("3. Search Employee")
-    print("4. Exit")
+    print("4. Update Employee")
+    print("5. Delete Employee")
+    print("6. Exit")
 
-    choice = input("Enter your choice: ")
+    choice = input("\nEnter your choice: ")
 
     if choice == "1":
 
@@ -45,6 +50,7 @@ while True:
         employees = view_employees()
 
         if len(employees) == 0:
+
             print("\nNo employee records found.")
 
         else:
@@ -66,9 +72,9 @@ while True:
 
     elif choice == "3":
 
-        print("\nSearch Employee")
-        print("1. Search by ID")
-        print("2. Search by Name")
+        print("\n========== Search Employee ==========")
+        print("1. Search by Employee ID")
+        print("2. Search by Employee Name")
 
         search_choice = input("Enter your choice: ")
 
@@ -122,16 +128,84 @@ while True:
                     print(f"Joining Date  : {employee[7]}")
                     print(f"ID Proof      : {employee[8]}")
                     print("--------------------------------------")
+    elif choice == "4":
+
+        employee_id = int(input("Enter Employee ID to Update: "))
+
+        employee = search_employee_by_id(employee_id)
+
+        if employee:
+
+            print("\n========== Current Employee Details ==========")
+
+            print(f"Name          : {employee[1]}")
+            print(f"Age           : {employee[2]}")
+            print(f"Phone Number  : {employee[3]}")
+            print(f"Email         : {employee[4]}")
+            print(f"Department    : {employee[5]}")
+            print(f"Salary        : {employee[6]}")
+            print(f"Joining Date  : {employee[7]}")
+            print(f"ID Proof      : {employee[8]}")
+
+            print("\nEnter New Employee Details")
+
+            name = input("Enter New Name: ")
+            age = int(input("Enter New Age: "))
+            phone_number = input("Enter New Phone Number: ")
+            email = input("Enter New Email: ")
+            department = input("Enter New Department: ")
+            salary = float(input("Enter New Salary: "))
+            joining_date = input("Enter New Joining Date (YYYY-MM-DD): ")
+            id_proof = input("Enter New ID Proof: ")
+
+            update_employee(
+                employee_id,
+                name,
+                age,
+                phone_number,
+                email,
+                department,
+                salary,
+                joining_date,
+                id_proof
+            )
 
         else:
 
-            print("\nInvalid Search Choice!")
+            print("\n❌ Employee not found!")
 
-    elif choice == "4":
+    elif choice == "5":
+
+        employee_id = int(input("Enter Employee ID to Delete: "))
+
+        employee = search_employee_by_id(employee_id)
+
+        if employee:
+
+            print("\nEmployee Found")
+            print("-------------------------")
+            print(f"Employee ID : {employee[0]}")
+            print(f"Name        : {employee[1]}")
+
+            confirm = input("\nAre you sure you want to delete? (yes/no): ")
+
+            if confirm.lower() == "yes":
+
+                delete_employee(employee_id)
+
+            else:
+
+                print("\nDelete operation cancelled.")
+
+        else:
+
+            print("\n❌ Employee not found!")
+
+    elif choice == "6":
 
         print("\nThank you for using Employee Management System.")
         break
 
     else:
 
-        print("\nInvalid choice! Please try again.")
+        print("\n❌ Invalid Choice! Please try again.")
